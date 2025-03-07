@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page-Quizz</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+
+    <header>
+        <h1>Quizz Légendaire</h1>
+
+    </header>
+
+      <p>Fait par Badji</p>
+
+    
+        <div class="container">
+            <div id="quiz"></div>
+        </div>
+
+    <script type="text/javascript">
+        const quizData = [
+            {
+                question: "Who is the creator of PHP?",
+                reponses: [
+                    "Jack Sparrow",
+                    "Rasmus Lerdorf",
+                    "Tim Berners-Lee",
+                    "Dennis Ritchie"
+                ],
+                solution: 1
+            },
+            {
+                question: "When was the first implementation of Blockchain Technology?",
+                reponses: [
+                    "2009", 
+                    "2008", 
+                    "2000", 
+                    "1991"
+                ],
+                solution: 1
+            },
+            {
+                question: "In which year was the first Playstation made?",
+                reponses: [
+                    "1994", 
+                    "1992", 
+                    "1990", 
+                    "1995"
+                ],
+                solution: 1
+            },
+            {
+                question: "What does PHP mean today?",
+                reponses: [
+                    "PHP: Personal Home Page",
+                    "PHP: Program High Performace",
+                    "PHP: Hypertext Preprocessor",
+                    "PHP: Hypertext Page"
+                ],
+                solution: 2
+            },
+            {
+                question: "What is the last Sega console?",
+                reponses: [
+                    "Dreamcast", 
+                    "Saturn", 
+                    "S-Gage", 
+                    "Lindbergh"
+                ],
+                solution: 0
+            },
+            {
+                question: "What does www stand for?",
+                reponses: [
+                    "Web wasabi world",
+                    "World wide web",
+                    "Wide web world",
+                    "Web war song"
+                ],
+                solution: 1
+            },
+            {
+                question: "What's the name of the UNIX creator?",
+                reponses: [
+                    "Mark Shuttleworth", 
+                    "Kenneth Thompson",
+                    "Linus Torvalds",
+                    "Bill Gates"
+                ],
+                solution: 1
+            },
+            {
+                question: "When was born Alan Turing?",
+                reponses: [
+                    "1981", 
+                    "1891", 
+                    "1934",
+                    "1912"
+                ],
+                solution: 3
+            },
+            {
+                question: "What is the port for the http?",
+                reponses: [
+                    "70",
+                    "90",
+                    "82",
+                    "80"
+                ],
+                solution: 3
+            }
+        ];
+  
+
+    
+        const generateQuiz = () => {
+            const quizContainer = document.getElementById('quiz');
+            quizContainer.innerHTML = '';
+
+            quizData.forEach((item, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('question');
+                
+                
+                const questionTitle = document.createElement('h3');
+                questionTitle.textContent = `${index + 1}. ${item.question}`;
+                questionElement.appendChild(questionTitle);
+
+                
+                item.reponses.forEach((reponse, idx) => {
+                    const answerElement = document.createElement('div');
+                    answerElement.classList.add('answer');
+
+                    const radioButton = document.createElement('input');
+                    radioButton.type = 'radio';
+                    radioButton.name = `question-${index}`;
+                    radioButton.value = idx;
+                    
+                    const label = document.createElement('label');
+                    label.textContent = reponse;
+                    answerElement.appendChild(radioButton);
+                    answerElement.appendChild(label);
+                    
+                    questionElement.appendChild(answerElement);
+                });
+
+                quizContainer.appendChild(questionElement);
+            });
+
+            const submitButton = document.createElement('button');
+            submitButton.textContent = "Finish";
+            submitButton.addEventListener('click', checkAnswers);
+            quizContainer.appendChild(submitButton);
+        };
+
+       
+        const checkAnswers = () => {
+            let score = 0;
+
+            quizData.forEach((item, index) => {
+                const selectedAnswer = document.querySelector(`input[name="question-${index}"]:checked`);
+                
+                if (selectedAnswer) {
+                    const answerIndex = parseInt(selectedAnswer.value);
+                    if (answerIndex === item.solution) {
+                        score++;
+                    }
+                }
+            });
+
+            
+            alert(`You score is: ${score} / ${quizData.length}`);
+            
+
+            let message = () => {
+                if ($score > 6 ){
+                    alert(`Bien joué ! ${score}: ${quizData.length}`);
+                if($score < 4){
+                    alert(`Dommage ! ${score}: ${quizData.length}`);
+                }
+                }
+            }
+        };
+
+        
+        generateQuiz();
+    </script>
+</body>
+</html>
